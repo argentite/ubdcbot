@@ -3,7 +3,7 @@ import urllib, json
 from telegram.ext import Updater, CommandHandler, MessageHandler
 from telegram.ext.filters import Filters
 
-def start(bot, update):
+def help(bot, update):
     update.message.reply_text(
         "Hello human! I'm Urban Dictionary Unofficial Bot. Send me a word and I'll lookup on Urban Dictionary!")
 
@@ -21,7 +21,8 @@ def lookup(bot, update):
 
 updater = Updater(os.environ['TG_BOT_API_KEY'])
 
-updater.dispatcher.add_handler(CommandHandler('start', start))
+updater.dispatcher.add_handler(CommandHandler('start', help))
+updater.dispatcher.add_handler(CommandHandler('help', help))
 updater.dispatcher.add_handler(MessageHandler(Filters.text, lookup))
 
 updater.start_polling()

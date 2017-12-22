@@ -5,8 +5,7 @@ from telegram.ext.filters import Filters
 
 def start(bot, update):
     update.message.reply_text(
-        "Hello {}! Welcome to Urban Dictionary Unofficial Bot."
-        .format(update.message.from_user.first_name))
+        "Hello human! I'm Urban Dictionary Unofficial Bot. Send me a word and I'll lookup on Urban Dictionary!")
 
 def lookup(bot, update):
     response = json.loads(urllib.urlopen("https://api.urbandictionary.com/v0/define?term={}".format(update.message.text)).read())

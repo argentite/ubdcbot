@@ -20,10 +20,24 @@ def command_lookup(bot, update):
             response['list'][i]['permalink']),
             parse_mode="Markdown", disable_web_page_preview=True)
 
+def command_random(bot, update):
+    response = json.loads(urllib.urlopen("https://api.urbandictionary.com/v0/random").read())
+    for i in range(5):
+        update.message.reply_text(
+            "*+{} -{} {}* _{}_\n{}\n[Permalink]({})".format(
+            response['list'][i]['thumbs_up'],
+            response['list'][i]['thumbs_down'],
+            response['list'][i]['word'],
+            response['list'][i]['author'],
+            response['list'][i]['definition'],
+            response['list'][i]['permalink']),
+            parse_mode="Markdown", disable_web_page_preview=True)
+
 updater = Updater(os.environ['TG_BOT_API_KEY'])
 
 updater.dispatcher.add_handler(CommandHandler('start', command_help))
 updater.dispatcher.add_handler(CommandHandler('help', command_help))
+updater.dispatcher.add_handler(CommandHandler('random', command_random))
 updater.dispatcher.add_handler(MessageHandler(Filters.text, command_lookup))
 
 updater.start_polling()
